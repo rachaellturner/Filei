@@ -1,0 +1,72 @@
+# in /src folder create an app, eg 'restaurants'
+python3 manage.py startapp "restaurants"
+
+# add:
+# to views.py
+from django.http import HttpResponse
+# to urls.py
+from django.conf.urls import url
+
+# function based view:
+# in views.py you can define functions that handle html requests
+
+def home(request):
+    #return a response
+    return # response
+    # eg
+    return render(request, "template",{})
+    # or an http response
+    return HttpResponse("Hello")
+
+
+# we need to put this view into a URL
+# open urls.py in your project folder
+# add
+from restaurants.views import home
+# this looks for the 'home' function we just wrote
+
+# add to urlpatterns
+url(r'$', home),
+
+# make a templates folder in the project folder to hold html files
+
+# make a file called base.html
+# views.py can talk to this html file
+
+
+# in base.py (in settings folder)
+# change 
+'DIRS': [],
+# to
+'DIRS': [os.path.join(BASE_DIR, 'templates')],
+# this points to the templates folder
+
+
+## create new pages ##
+
+# each view function can be assigned a url
+# say we have functions called home, news, and trivia
+# in urls.py:
+# change
+from restaurants.views import home
+# to
+from restaurants.views import home, news, trivia
+
+# add to urlpatterns:
+url(r'^home/$', home),
+url(r'^random_numbers$', random_numbers),
+url(r'^news$', news),
+url(r'^trivia$', trivia),
+
+# each view can use a different template
+random_numbers.html
+news.html
+trivia.html
+
+
+
+
+
+
+
+

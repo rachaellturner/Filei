@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    {% include 'snippets/css.html' %}
+</head>
+<body>
+    <div class='container'>
+        <h1>Retrotransposons web interface thingy!</h1>
+        {% include 'snippets/nav.html' %}
+    </div>
+    
+    <div class='container'>
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    {% include 'snippets/js.html' %}
+
+</body>
+</html>
