@@ -1,0 +1,17 @@
+# Modules used
+from Bio import SeqIO
+import re
+
+records = {}  # dictionary to put sequences with repName
+regex = re.compile(r"[a-zA-Z0-9]+$")  # takes repName in same format as table
+
+# Updates dictionary with key and values. Values in format: [DNAseq, AAseq]
+for seq_record in SeqIO.parse("top11_sequences.fasta", "fasta"):
+    records[seq_record.id]=[str(seq_record.seq), str((seq_record.seq).translate())]
+
+# Creates CSV file from dictionary
+OUTF = open("sequences.csv", "wt")
+OUTF.write("repName\tDNAseq\tAAseq\n")
+for key in records:
+    OUTF.write((regex.search(key)).group()+"\t"+records[key][0]+"\t"+records[key][1]+"\n")
+OUTF.close()
