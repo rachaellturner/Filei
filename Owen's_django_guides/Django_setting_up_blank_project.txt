@@ -1,0 +1,86 @@
+Django & related code
+# set up a folder (umbrella for all projects)
+mkdir try_Django
+cd try_Django
+
+# install virtual environment
+sudo apt install virtualenv
+
+# run this inside your development folder:
+virtualenv -p python3 .
+
+# activate the virtual environment
+source bin/activate
+
+# install django (in the virtual env)
+pip install django
+
+mkdir src && cd src
+
+# start a project
+django-admin.py startproject myfirstproject .
+cd myfirstproject
+
+# make a local settings folder 
+# this separates 'local' and 'live' settings 
+# 'live' is the one we're using for the project
+mkdir settings
+
+# make another __init__.py file inside settings
+cd settings
+touch __init__.py 
+
+# rename old settings.py file to old_settings.py
+
+# make base.py file in settings folder
+touch base.py
+
+# copy all text from old_settings.py to base.py
+
+# make production.py and .local.py files in settings folder
+# copy contents of base.py into local.py and production.py
+
+# in production.py change:
+DEBUG = True
+# to
+DEBUG = False
+
+# add following text to __init__.py:
+from .base import *
+
+from .production import *
+
+try:
+    from .local import *
+except:
+    pass
+
+# in base.py, change:
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# to
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# this makes it look one directory deeper
+
+# go back to project folder
+cd ..
+
+# now install some other common installations (optional)
+pip install MySQL-python
+
+# make a requirements.txt file
+pip freeze > requirements.txt
+# this lists all requirements for the environment
+
+# run these in directory containing manage.py
+# set up the database
+python3 manage.py migrate
+# set up a super user
+python3 manage.py createsuperuser
+
+# try and run the server:
+python3 manage.py runserver
+
+# http://127.0.0.1:8000/
+
+
+

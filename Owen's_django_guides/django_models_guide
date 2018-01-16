@@ -1,0 +1,55 @@
+# create a model, eg. restaurant locations
+class Restaurant(models.Model):
+    name = models.CharField(max_length=120)
+    location = models.Charfield(max_length=120, null=True, blank=True)
+    
+    # refer to the object by it's name:
+    def __str__(self):
+        return self.name
+
+# max_length=120 > entry can be up to 120 characters long
+# null=True > field can be empty
+# blank=True > field is not required (False > field is required)
+
+# in base.py (in /settings) add your app folder to INSTALLED_APPS
+'my_first_app'
+
+# make migrations (in /src directory)
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+# we can add this model to admin
+# add to admin.py
+from .models import Restaurant
+admin.site.register(Restaurant)
+# remember to make migrations again!
+
+# go to 127.0.0.1:8000/admin to look at this
+
+# date time field
+# eg.
+timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+my_date_field = models.DateTimeField(auto_now=False, auto_now_add=False)
+
+## USING MODELS IN VIEWS ##
+
+# set up templates folder in app directory
+# in templates folder create another folder with the name of your model eg 'restaurants'
+# create an html file for your model eg 'restaurants.html'
+
+# in views.py
+
+from .models import Restaurant
+
+def restaurant_listview(request):
+    template_name = "restaurants/restaurants_list.html"
+    queryset = Restaurant.objects.all()
+    context = {"object_list": queryset}
+    return render(request, template_name, context)
+
+# in the html file:
+{% for object in object_list %}
+    <li>{{ object.name }} {{ object.location }}</li>
+{% endfor %}
+
+

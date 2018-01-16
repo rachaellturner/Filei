@@ -1,0 +1,154 @@
+# {{variable}} is a context variable
+# views.py will contain a dict for these variables
+# eg
+
+variables = {
+        "html_var": "variable",
+        "num": num
+
+
+
+## template tags ##
+https://docs.djangoproject.com/en/2.0/ref/templates/builtins/
+
+# if statement:
+
+{% if x = y %}
+do something
+{% endif %} 
+
+# to do a for loop:
+
+{% for x in y %}
+do something
+{% endfor %}
+
+# LOGIC SHOULD LIVE IN VIEWS.PY THOUGH! #
+
+# keep stuff on each page without copying!
+<div class='container'>
+{% block content %}
+{% endblock content %}
+</div>
+
+# put stuff you want to keep on all pages in another file, eg base.html
+# use {% extends "" %} at the top of each page:
+{% extends "base.html" %}
+
+# wrap the html in block content:
+{% block content %}
+html
+{% endblock content %}
+
+
+## NAVIGATION ##
+
+# navigation tag:
+<a href='/"url in urls.py"'>"page"</a>
+# eg
+<a href='/'>home</a>
+<a href='/news'>news</a>
+
+# this can be cleaner though
+# make 'snippets' folder in templates folder
+# make nav.html
+# put navigation links in here
+# eg
+<h1>My_first_website.com</h1>
+    <a href='/'>*Home*</a>
+    <a href='/random_numbers'>*Random Numbers*</a>
+    <a href='/news'>*News*</a>
+    <a href='/trivia'>*Trivia*</a>
+
+# then wrap this in a container:
+<div class='container'>
+    <h1>My_first_website.com</h1>
+        <a href='/'>*Home*</a>
+        <a href='/random_numbers'>*Random Numbers*</a>
+        <a href='/news'>*News*</a>
+        <a href='/trivia'>*Trivia*</a>
+</div>   
+
+# and add this line to base.html
+{% include 'snippets/nav.html' %}
+
+# same can be done with css (in <head>)
+# and java script in <body>
+
+# use bootstrap to add some css!
+# in css.html add the following:
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+# in js.html add:
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+# we can make a sidebar instead of the current horizontal bar:
+# in /snippets make a new file called sidebar.html
+# in sidebar.html add the following:
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ul>
+
+# add to a page, we'll put it on the news page:
+{% include 'snippets/sidebar.html' %}
+
+## CLASS BASED VIEWS ##
+
+# in views.py add the following:
+from django.views import View
+
+# example class based view for contact page:
+class ContactView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, "contact.html",context)
+
+# update urls.py with the new view! # class based views must be capitalised
+from my_first_app.views import ..., ContactView
+
+# add a new url. The regular exression can look for 'id' as well by adding (?P<id>\d+)
+url(r'^classcontact/(?P<id>\d+)/$', ContactView.as_view()),
+
+
+## TEMPLATE VIEW ##
+
+# to views.py add:
+from django.views.generic import TemplateView
+
+# simple template view:
+class ContactTemplateView(TemplateView):
+    template_name = 'contact.html'
+
+# to get context data to be passed to the html (as per function based views)
+# eg our random numbers page:
+class random_numbersTemplateView(TemplateView):
+    template_name = 'random_numbers.html'
+
+    def get_context_data(self, *args, **kwargs):
+        
+        context = super(random_numbersTemplateView, self).get_context_data(*args, **kwargs)
+        
+        positive_nums = []
+
+        for x in range(0,10):
+            num = random.randint(0,100)
+            if num%2 == 0:
+                positive_nums.append(num)
+        
+        context = {
+            "nums": positive_nums
+        }
+        return context
+
+# add this to urls.py to be a bit cleaner:
+from django.views.generic import TemplateView
+
+# to point to a simple html template (*only when context variables required*)
+url(r'^templatecontact/$', TemplateView.as_view(template_name = 'contact.html')),
+
+
+
+
