@@ -1,0 +1,51 @@
+# HERV
+# Modules
+from Bio import SeqIO
+import re
+
+records = []
+
+# regular expressions
+regex = re.compile(r"^[a-zA-Z0-9]+_[a-zA-Z0-9]+_([a-zA-Z0-9-]+)")  # repName from fasta
+regex2 = re.compile(r"([0-9]+)-([0-9]+)")  # sequence location
+regex3 = re.compile(r"(M\w+)\*")  # ORFs
+
+# Updates list with description and sequence in tuple format (description, sequence, ORFs)
+for seq_record in SeqIO.parse("HERVsequences.fasta", "fasta"):
+    #print("Processing sequences...")
+    
+    # translates sequences in all reading frames
+    AAseq1 = str((seq_record.seq).translate())
+    AAseq2 = str((seq_record.seq[1:]).translate())
+    AAseq3 = str((seq_record.seq[2:]).translate())
+    
+    allRF = [AAseq1, AAseq2, AAseq3]
+    
+    # empty list for ORF that are found in each sequence
+    products = []
+    
+    #find ORFs that lengths longer than specified
+    for seq in allRF:
+        #print seq+"\n"
+        ORFs = re.findall(regex3, seq)
+        #print ORFs
+        for ORF in ORFs:
+            if len(ORF)>500:  # ORFs longer than this length selected
+                products.append(ORF)
+            else:
+                continue
+    
+    records.append((seq_record.description, str(seq_record.seq), products))
+
+# Creates CSV file from list of tuples
+OUTF = open("HERVsequences.csv", "wt")
+OUTF.write("repName\tgenoStart\tgenoEnd\tDNAseq\tORF1\tORF2\n")
+
+for entry in records:
+    #print("Writing sequences to output file...")
+    coord = re.search(regex2, entry[0])
+    genoStart = coord.group(1)
+    genoEnd =  coord.group(2)
+    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+entry[1]+str(entry[2])+"\n")
+
+OUTF.close()
