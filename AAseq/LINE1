@@ -1,0 +1,66 @@
+# LINE1
+# Modules
+from Bio import SeqIO
+import re
+
+records = []
+
+# regular expressions
+regex = re.compile(r"^[a-zA-Z0-9]+_[a-zA-Z0-9]+_([a-zA-Z0-9-]+)")  # repName from fasta
+regex2 = re.compile(r"([0-9]+)-([0-9]+)")  # sequence location
+regex3 = re.compile(r"(M\w+)\*")  # ORFs
+
+# Updates list with description and sequence in tuple format (description, sequence, ORF)
+for seq_record in SeqIO.parse("L1sequences.fasta", "fasta"):
+    #print("Processing sequences...")
+    
+    # translates sequences in all reading frames
+    AAseq1 = str((seq_record.seq).translate())
+    AAseq2 = str((seq_record.seq[1:]).translate())
+    AAseq3 = str((seq_record.seq[2:]).translate())
+    
+    allRF = [AAseq1, AAseq2, AAseq3]
+    
+    # empty list for ORF that are found in each sequence
+    ORF1 = ["None"]
+    ORF2 = ["None"]
+    
+    #find ORFs that lengths longer than specified
+    for seq in allRF:
+        #print seq+"\n"
+        ORFs = re.findall(regex3, seq)
+        #print ORFs
+        for ORF in ORFs:
+            if len(ORF)>300: # ORFs longer than this length selected
+                testORF.append(ORF)
+                if len(ORF)<350:
+                    ORF1.append(ORF)
+                else:
+                    ORF2.append(ORF)
+            else:
+                continue
+
+    
+    # sort sequences by length and select longest sequence
+    ORF1.sort(key=len)
+    ORF1 = ORF1[-1]
+
+    ORF2.sort(key=len)
+    ORF2 = ORF2[-1]
+        
+    
+    records.append((seq_record.description, seq_record.seq, ORF1, ORF2))
+
+
+# Creates CSV file from list of tuples
+OUTF = open("testsequences.csv", "wt")
+OUTF.write("repName\tgenoStart\tgenoEnd\tDNAseq\tORF1\tORF2\n")
+
+for entry in records:
+    #print("Writing sequences to output file...")
+    coord = re.search(regex2, entry[0])
+    genoStart = coord.group(1)
+    genoEnd =  coord.group(2)
+    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+str(entry[1])+"\t"+entry[2]+"\t"+entry[3]+"\n")
+
+OUTF.close()
