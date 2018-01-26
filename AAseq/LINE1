@@ -11,43 +11,51 @@ regex2 = re.compile(r"([0-9]+)-([0-9]+)")  # sequence location
 regex3 = re.compile(r"(M\w+)\*")  # ORFs
 regex4 = re.compile(r"[FI](\w\w)[KAT][WFC][MENL]\w[LV][E]\w[ILT][ILM][LPN][SKE]")  #ORF2 DUF1725 domain
 regex5 = re.compile(r"[VLIQKPAY]\w[KDEN]\w+[RH]\w+[RKTSQ]\w\w[NESTAQD]\w+[DV]\w\w\w[GACFL][YFV][HDFYWANLE]\w[IVMFAL]\w+[PRTSKV][LVMYFQE][G]\w\w\w[ASGV][PSGVLA]\w\w[FYCSAMW]\w+[YFL][LAMIVWF][D][DE]\w\w[IVYFACL]\w+[NGSRDETKF]\w\w\w\w\w\w[K][CTLSIVHRWAS]\w+[FWYLINMV][TLIVHPM][GIS]")  # ORF2 reverse transcriptase
-regex6 = re.compile(r"M[AV][GD][TA]PPP[TA][LRWS]L[LPQ]PC[SR][LS]ISDCCAS[SN][QE][QR][DG]S[MV]G[VIM]GP[ATS][EK]P[GC]")  #ORF0 consensus sequence
-
-"""\w*[AVTM]GY[NS]L[LVM]V[CHR][RHC][LF]L[SR][PLR][LWS]EK[HCR][SN]I[WQR][VA]GV[STA][RQ]"""
+regex6 = re.compile(r"M[AV][GD][TA]PPP[TA][LRWS]L[LPQ]PC[SR][LS]ISDCCAS[SN][QE][QR][DG]S[MV]G[VIM]GP[ATS][EK]P[GC]")  # ORF0 pattern up to 1st splice region
 
 # Updates list with description and sequence in tuple format (description, sequence, ORF)
 for seq_record in SeqIO.parse("L1sequences.fasta", "fasta"):
-    #print("Processing sequences...")
     
-    # translates sequences in all reading frames
+    # translates all reading frames
     AAseq1 = str((seq_record.seq).translate())
     AAseq2 = str((seq_record.seq[1:]).translate())
     AAseq3 = str((seq_record.seq[2:]).translate())
+    AAseq4 = str((seq_record.seq).reverse_complement().translate())
+    AAseq5 = str((seq_record.seq[:-1]).reverse_complement().translate())
+    AAseq6 = str((seq_record.seq[:-2]).reverse_complement().translate())
+
     
-    allRF = [AAseq1, AAseq2, AAseq3]  #list of the reading frames
+    allRF = [AAseq1, AAseq2, AAseq3]  # list of the reading frames
+    backRF = [AAseq4, AAseq5, AAseq6]  # list of reverse reading frames
     
     # empty list for ORF that are found in each sequence
     ORF0 = ["None"]
     ORF1 = ["None"]
     ORF2 = ["None"]
     
-    #find ORFs that lengths longer than specified
+    #find ORFs that lengths longer than specified, in sense sequences (ORF1 and ORF2)
     for seq in allRF:
-        #print seq+"\n"
         ORFs = re.findall(regex3, seq)
-        #print ORFs
         for ORF in ORFs:
             #identify ORFs by length and regular expression
-            if (len(ORF)>64) and (len(ORF)<78) and (regex6.search(ORF)!="None"):
-                ORF0.append(ORF)
-            elif (len(ORF)>333) and (len(ORF)<343) and (regex4.search(ORF)!= None):
+            if (len(ORF)>333) and (len(ORF)<343) and (regex4.search(ORF)== None):
                 ORF1.append(ORF)
-            elif (len(ORF)>1270) and (regex4.search(ORF)== None) and (regex5.search(ORF)== None):
+            elif (len(ORF)>1270) and (regex4.search(ORF)!= None) and (regex5.search(ORF)!= None):
                 ORF2.append(ORF)
             else:
                 continue
                 
-    
+    #find ORFs that are specified length in antisense sequences    
+    for seq in backRF:
+        ORFs = re.findall(regex3, seq)
+        for ORF in ORFs:
+            #identify ORFs by length and regular expression
+            if (len(ORF)>64) and (len(ORF)<78) and (regex6.search(ORF)!=None):
+                ORF0.append(ORF)
+            else:
+                continue
+        
+        
     # sort sequences by length and select longest sequence
     ORF0.sort(key=len)
     ORF0 = ORF0[-1]
@@ -63,13 +71,13 @@ for seq_record in SeqIO.parse("L1sequences.fasta", "fasta"):
 
 
 # Creates CSV file from list of tuples
-OUTF = open("testsequences.csv", "wt")
-OUTF.write("repName\tgenoStart\tgenoEnd\tStrand\tORF0\tORF1\tORF2\n")
+OUTF = open("L1sequences.csv", "wt")
+OUTF.write("repName\tgenoStart\tgenoEnd\tStrand\tDNAseq\tORF0\tORF1\tORF2\n")  # columns in CSV
 
 for entry in records:
     coord = re.search(regex2, entry[0])
     genoStart = coord.group(1)
     genoEnd =  coord.group(2)
-    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+(regex.search(entry[0])).group(2)+"\t"+"\t"+entry[2]+"\t"+entry[3]+"\t"+entry[4]+"\n")
+    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+(regex.search(entry[0])).group(2)+"\t"+str(entry[1])+"\t"+entry[2]+"\t"+entry[3]+"\t"+entry[4]+"\n")
 
 OUTF.close()
