@@ -62,13 +62,13 @@ for seq_record in SeqIO.parse("HERVsequences.fasta", "fasta"):
 
 # Creates CSV file from list of tuples
 OUTF = open("HERVsequences.csv", "wt")
-OUTF.write("repName\tgenoStart\tgenoEnd\tDNAseq\tGAG\tPOL\tENV\n")
+OUTF.write("repName\tgenoStart\tgenoEnd\tStrand\tDNAseq\tGAG\tPOL\tENV\n")  # columns in CSV
 
 for entry in records:
     #print("Writing sequences to output file...")
     coord = re.search(regex2, entry[0])
     genoStart = coord.group(1)
     genoEnd =  coord.group(2)
-    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+str(entry[1])+"\t"+entry[2]+"\t"+entry[3]+"\t"+entry[4]+"\n")
+    OUTF.write((regex.search(entry[0])).group(1)+"\t"+genoStart+"\t"+genoEnd+"\t"+(regex.search(entry[0])).group(2)+"\t"+str(entry[1])+"\t"+entry[2]+"\t"+entry[3]+"\t"+entry[4]+"\n")
 
 OUTF.close()
