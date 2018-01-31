@@ -1,0 +1,51 @@
+library(msa)
+
+MySequences <- readAAStringSet("examplefile.fasta")
+MySequences
+
+Alignment <- msa(MySequences)
+print(Alignment)
+
+Alignment2 <- msaConvert(Alignment, type="seqinr::alignment")
+?msaClustalW
+
+print(Alignment, show=c("alignment", "version"))
+
+
+names <- Alignment2$nam
+sequences <-Alignment2$seq
+
+sequences[1]
+
+# create file
+fileConn <- file("output4.txt")
+for(x in 1:length(names)){
+  cat(">", file="output4.txt", append=T)
+  cat(names[x], file="output4.txt", sep="\n", append=T)
+  cat(sequences[x], file="output4.txt", seq="\n", append=T)
+}
+close(fileConn)
+
+# test weblogo
+
+library(RWebLogo)
+?RWebLogo
+
+weblogo(sequences, format = "pdf")
+
+# test ggseqlogo
+
+install.packages("ggseqlogo")
+require(ggplot2)
+require(ggseqlogo)
+
+# split sequnces into smaller segments
+num.chars <- nchar(sequences[1])
+starts <- seq(1, num.chars, by=80)
+fragments <- sapply(starts, function(ii) {
+  list(substr(sequences, ii, ii+79))
+})
+
+fragments
+rows <- length(fragments)
+ggseqlogo(fragments, method="bits", nrow=rows)
