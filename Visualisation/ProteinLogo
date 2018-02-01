@@ -12,7 +12,9 @@ Alignment <- msa(MySequences)
 Alignment2 <- msaConvert(Alignment, type="seqinr::alignment")
 
 # output of complete sequence alignment
-print(Alignment, show="complete")
+# print(Alignment, show="complete")
+# for consensus sequence:
+consensus <- msaConsensusSequence(Alignment)
 
 # create objects
 names <- Alignment2$nam
