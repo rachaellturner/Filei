@@ -32,4 +32,5 @@ fragments <- sapply(starts, function(ii) {
 
 # determine number of rows and print protein logo
 rows <- length(fragments)
-ggseqlogo(fragments, method="bits", nrow=rows)
+ggseqlogo(fragments, method="bits", nrow=rows, col_scheme="clustalx")+theme(axis.text.x=element_blank(), strip.text.x = element_blank(), axis.title.y=element_blank(), axis.text.y=element_blank())
+
