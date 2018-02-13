@@ -9,9 +9,9 @@ records = []
 regex = re.compile(r"^[a-zA-Z0-9]+_[a-zA-Z0-9]+_([a-zA-Z0-9-]+).+strand=([+-])")  # repName and strand from fasta
 regex2 = re.compile(r"([0-9]+)-([0-9]+)")  # sequence location
 regex3 = re.compile(r"(M\w+)\*")  # ORFs
-regex4 = re.compile(r"C\w\wC\w\w\w\wH\w\w\w\wC")  # GAG regular expression
-regex5 = re.compile(r"LPQG")  # POL regular expression
-regex6 = re.compile(r"Y\wDD")  # POL regulalar expression
+regex4 = re.compile(r"C\w\wC\w\w\w\wH\w\w\w\wC")  # GAG regular expression: zinc finger
+regex5 = re.compile(r"LPQG")  # POL regular expression: motif
+regex6 = re.compile(r"Y\wDD")  # POL regulalar expression: motif
 regex7 = re.compile(r"strand=([+-])")  # strand
 
 
