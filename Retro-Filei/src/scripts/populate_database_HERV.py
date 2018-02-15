@@ -27,7 +27,7 @@ def run():
     ]
 
 
-    df = pandas.read_csv("HERV_sample.csv.tar.gz", compression = 'gzip', sep = '\t', index_col=None, names = cols)
+    df = pandas.read_csv("HERV_sample.csv.tar.gz", compression = 'gzip', sep = '\t', skiprows=1, index_col=None, names = cols)
     
     for row in df.itertuples(): 
         print("Processing " + row.repName)
