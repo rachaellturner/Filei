@@ -1,4 +1,4 @@
-# LINE1
+# LINE1 - uses FASTA file from UCSC Table Browser
 # Modules
 from Bio import SeqIO
 import re
