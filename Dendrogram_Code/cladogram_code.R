@@ -7,7 +7,7 @@ library("Biostrings")
 library("ggplot2")
 library("ggtree")
 
-#opening Newick format files.
+#opening Newick format files for each ORF.
 ENVtree <- read.tree("ENV_treefile")
 POLtree <- read.tree("POL_treefile")
 GAGtree <- read.tree("GAG_treefile")
