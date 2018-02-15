@@ -821,13 +821,12 @@ def protein_logo(filepath):
         height = len(fragments)*250
 
         # code for removing axis text, was unable to get this working inside django. Works fine as its own script!
-        '''gp = ggseqlogo.ggseqlogo(fragments, nrow = rows)
-        pp = ggplot2.theme(
-            axis_text = ggplot2.element_blank(),
-            strip_text_x = ggplot2.element_blank(),
-            axis_title_y = ggplot2.element_blank(),
-            axis_text_y = ggplot2.element_blank()
-        )'''
+        #gp = ggseqlogo.ggseqlogo(fragments, nrow = rows)
+        #pp = ggplot2.theme(
+            #axis_text = ggplot2.element_blank(),
+            #strip_text_x = ggplot2.element_blank(),
+            #axis_title_y = ggplot2.element_blank(),
+            #axis_text_y = ggplot2.element_blank())
     
         ro.r.jpeg(file = 'retrotransposons/static/images/protein_logo_image.jpg', width = 1150, height = height, units = "px")
         print(ggseqlogo.ggseqlogo(fragments, nrow = rows))
@@ -874,13 +873,13 @@ def protein_logo(filepath):
 
     rows = len(zipped_fragments) 
 
-    '''gp = ggseqlogo.ggseqlogo(zipped_fragments, nrow = rows)
-    pp = ggplot2.theme(
-        axis_text = ggplot2.element_blank(),
-        strip_text_x = ggplot2.element_blank(),
-        axis_title_y = ggplot2.element_blank(),
-        axis_text_y = ggplot2.element_blank()
-        )'''
+    #gp = ggseqlogo.ggseqlogo(zipped_fragments, nrow = rows)
+    #pp = ggplot2.theme(
+        #axis_text = ggplot2.element_blank(),
+        #strip_text_x = ggplot2.element_blank(),
+        #axis_title_y = ggplot2.element_blank(),
+        #axis_text_y = ggplot2.element_blank()
+        #)
 
     ro.r.jpeg(file = 'retrotransposons/static/images/protein_logo_image.jpg', width = 1200, height = height, units = "px")    
     print(ggseqlogo.ggseqlogo(zipped_fragments, nrow = rows)) # ggseqlogo produces the alignment image 
