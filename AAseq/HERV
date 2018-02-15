@@ -1,4 +1,4 @@
-# HERV testing
+# HERV - uses FASTA file of sequences from UCSC Table browser
 # Modules
 from Bio import SeqIO
 import re
