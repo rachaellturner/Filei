@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block content %}
+
+<title>Upload Successful!</title>
+
+<div class = "container" >
+    <h3>New entry successfully added to {{ family }} database, ID number: {{ new_entry.id }}</h3>
+</div>
+{% endblock content %}

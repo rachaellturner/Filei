@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>{{ family }} Find Peptide Sequence</title>
+
+<div class = "container">
+ 
+  <h1><strong>Match {{ family }} Peptide Sequences</strong></h1>
+  <h3>Enter an amino acid sequence to see if that sequence exists in our {{ family }} database.</h3>
+  
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %} 
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+    <br>
+  </form>
+</div>
+
+<div class = "container">
+{% if matches %}
+    <h3><strong>{{ matches }} matches found.</strong></h3>
+{% endif %}
+</div>
+
+{% if info %}
+
+<br>
+
+<div class = "container">
+
+        {% for obj in info %}
+            <div class = "container">
+            <div class = "panel panel-default">
+            </div class = "panel-body">
+            <p><strong>ID: </strong> {{ obj.id }}</p>
+            <p><strong>Repeat Name: </strong> {{ obj.repName }}</p>
+            <p><strong>Family: </strong> {{ obj.repFamily }}</p>
+            <p><strong>Class: </strong> {{ obj.repClass }}</p>
+            <p><strong>Chromosome: </strong> {{ obj.genoName }}</p>
+            <p><strong>Start: </strong> {{ obj.genoStart }}</p>
+            <p><strong>End: </strong> {{ obj.genoEnd }}</p>
+            <p><strong>Strand: </strong>{{ obj.strand }}</p>
+            <!--p style = "word-wrap: break-word; width: 1000px"><strong>DNA Sequence: </strong>{{ obj.DNAseq }}</p-->
+            
+            {% if family == 'LINE1' %}
+            <p style = "word-wrap: break-word; width: 1000px"><strong>ORF0 Sequence: </strong>{{ obj.ORF0 }}</p>
+            <p style = "word-wrap: break-word; width: 1000px"><strong>ORF1 Sequence: </strong>{{ obj.ORF1 }}</p>
+            <p style = "word-wrap: break-word; width: 1000px"><strong>ORF2 Sequence: </strong>{{ obj.ORF2 }}</p>
+            {% endif %}
+
+            {% if family == 'HERV' %}
+            <p style = "word-wrap: break-word; width: 1000px"><strong>GAG Sequence: </strong>{{ obj.GAG }}</p>
+            <p style = "word-wrap: break-word; width: 1000px"><strong>POL Sequence: </strong>{{ obj.POL }}</p>
+            <p style = "word-wrap: break-word; width: 1000px"><strong>ENV Sequence: </strong>{{ obj.ENV }}</p>
+            {% endif %}
+            </div>
+            </div>
+            </div>
+            <br><br>
+           
+        {% endfor %}       
+        
+    </div>
+
+{% endif %}
+<br><br>
+
+{% endblock %}

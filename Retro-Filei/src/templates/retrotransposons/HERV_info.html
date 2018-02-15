@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block content %}
+
+<title>HERV Information</title>
+
+<div class = "container" >
+    <h1><strong>HERV</strong></h1>
+    <h2>Human Endogenous Retrovirus</h2>
+
+    <br>
+    <img style = "width:1050px;height:20;display:block;margin-left: auto;margin-right: auto" src="{% static "images/HERV.jpg" %}"/>
+    <br>
+
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#1">
+        <h3><strong>Frequency of repeats by name:</strong></h3>
+        <div id="1" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/bar_plot_repname.png" %}"/>
+        </div>
+    </div>
+
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#2">
+        <h3><strong>Frequency of repeats by chromosome:</strong></h3>
+        <div id="2" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/bar_plot_chr.png" %}"/>
+        </div>
+    </div>
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#3">
+        <h3><strong>Frequency of open reading frames by repeat name:</strong></h3>
+        <div id="3" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/stacked_plot_repname.png" %}"/>
+        </div>
+    </div>
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#4">
+        <h3><strong>Frequency of open reading frames by chromosome:</strong></h3>
+        <div id="4" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/stacked_plot_chr.png" %}"/>
+        </div>
+    </div>
+
+    <br><br>
+
+    <p> <strong>HERV</strong> elements make up approximately 10% of the human genome, but aren’t active in transposition due to mutations and deletions.</p>
+    <p> Although not active, they have biologically active open reading frames, the products of which have been linked to carcinogenesis:
+    </p>
+    <div class = "container" >
+        <p>- <strong>GAG</strong> encodes for the retroviral capsid.</p>
+        <p>- <strong>POL</strong> encodes enzymes for viral replication, integration and protein cleavage.</p>
+        <p>- <strong>ENV</strong> encodes for envelope proteins</p>
+    </div>
+        
+    <p>HERVs are classified based on their homology to animal retroviruses, but due to their complexity this can be difficult.</p>
+    <br>
+    <p>Further reading:</p>
+    <p><a href = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1187282/" target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1187282/</a></p>
+       
+    <br><br><br>
+</div>
+
+{% endblock content %}

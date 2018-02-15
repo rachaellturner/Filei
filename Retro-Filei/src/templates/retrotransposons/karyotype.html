@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>{{ family }} Distribution</title>
+
+<div class = "container">
+  <h1><strong>{{ family }} Distribution</strong></h1>
+  <br>
+  <p><strong>Choose a repeat name and press submit to view the distribution of that repeat across the human genome.</strong></p>
+  
+  <p>Distributions are shown within the karyotype: the position of repeats are shown by blocks, with stacked blocks showing areas where repeats are overlapping. Chromosomes with taller blocks indicate that there are no overlapping repeat sequences.</p>
+
+
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %} 
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+  </form>
+</div>
+
+{% if image %}
+<div class = "container">
+  <img src="{% static "images/karyotype.jpg" %}"/>
+</div>
+{% endif %}
+{% endblock %}
