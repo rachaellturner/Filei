@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<title>Home</title>
+
+<br>
+<div class="container">
+        <h3 style = "text-align: center;"><strong>Around 42% of the human genome is made up of retrotransposons.</strong></h3> 
+        <br>
+        <h4 style = "text-align: center;">These genomic elements are able to copy themselves via an RNA intermediate and are reinserted somewhere else into the genome sequence.</h4> 
+        <h4 style = "text-align: center;">This method of transposition causes genomic enlargement and induces mutations by inserting near or within genes.</h4>
+        <h4 style = "text-align: center;">Accumulation of mutations means that many of these retrotransposons are no longer active.</h4>
+        <h4 style = "text-align: center;">For more information on retrotransposons please visit the <a href="/overview">Overview</a> page.</h4>
+        <br><br>
+    
+</div>
+<div class="container">
+    
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="text-center"><strong>Explore</strong></h3></div>
+                    <div class="panel-body text-center">
+                            <div class="btn-group">
+                                    
+                                <a href="/LINE1_info"><button class="btn btn-default btn-lg" type="button" id="LINEButton">
+                                    LINE-1
+                                </button></a>
+                                
+                                <a href="/HERV_info"><button class="btn btn-default btn-lg" type="button" id="HERVButton">
+                                    HERV
+                                </button></a>
+    
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+              <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="text-center"><strong>Inspect</strong></h3></div>
+              <div class="panel-body text-center">
+                    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#mzTAB">
+                        <h4>mzTAB</h4>
+                        <div id="mzTAB" class="collapse">
+                                <a href="/LINE1_upload_mzTAB"><button class="btn btn-default btn-lg" type="button">LINE-1</button></a>
+                                <a href="/HERV_upload_mzTAB"><button class="btn btn-default btn-lg" type="button">HERV</button></a>
+                        </div>
+                    </div>
+                    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#mzID">
+                        <h4>mzID</h4>
+                        <div id="mzID" class="collapse">
+                            <a href="/LINE1_upload_mzID"><button class="btn btn-default btn-lg" type="button">LINE-1</button></a>
+                            <a href="/HERV_upload_mzID"><button class="btn btn-default btn-lg" type="button">HERV</button></a>
+                        </div>
+                    </div>
+
+            </div>
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="text-center"><strong>Atlas</strong></h3></div>
+              <div class="panel-body text-center">
+                    <div class="btn-group">
+                            
+                        <a href="/new_Atlas_entry"><button class="btn btn-default btn-lg" type="button">
+                            Contribute
+                        </button></a>
+                        
+                        <a href="/Atlas_Table"><button class="btn btn-default btn-lg" type="button">
+                            Table
+                        </button></a>
+
+                    </div>
+            </div>
+            </div>
+          </div>
+      </div>
+
+
+
+<br><br><br>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>{{ family }} DNA Sequences</title>
+
+<div class = "container">
+ 
+  <h1><strong>{{ family }} DNA Sequences</strong></h1>
+  <h3>Choose a repeat name <strong>OR</strong> ID to display the DNA sequences for that repeat name or ID.</h3>
+  <p>(Click on Download FASTA to generate a fasta file for your selection).</p>
+  
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %} 
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+    <br>
+    <a href="{{ family }}_sequences"><button class = "btn-group btn-group-justified" type="submit">Reset</button></a>
+
+  </form>
+</div>
+
+{% if info %}
+<br>
+    <div class = "container">
+        <a class = "btn-group btn-group-justified" type="submit" href="/static/sequences.fasta" download="{{ repname }}_sequences.fasta"><button>Download Fasta file</button></a>
+    </div>
+
+    <br>
+
+    {% for obj in info %}
+        <div class = "container">
+        <div class = "panel panel-default">
+            </div class = "panel-body">
+            <p><strong>ID: </strong> {{ obj.id }}</p>
+            <p><strong>Repeat Name: </strong> {{ obj.repName }}</p>
+            <p><strong>Chromosome: </strong> {{ obj.genoName }}</p>
+            <p><strong>Start: </strong> {{ obj.genoStart }}</p>
+            <p><strong>End: </strong> {{ obj.genoEnd }}</p>
+            <p><strong>Strand: </strong>{{ obj.strand }}</p>
+            <p style = "word-wrap: break-word; width: 800px"><strong>DNA Sequence: </strong>{{ obj.DNAseq }}</p>
+            <br>
+            </div>
+        </div>
+        </div>
+        <br>
+    {% endfor %}
+
+{% endif %}
+
+<br><br>
+
+{% endblock %}

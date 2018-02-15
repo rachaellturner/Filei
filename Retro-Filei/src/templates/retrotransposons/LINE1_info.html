@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block content %}
+
+<title>LINE-1 Information</title>
+
+<div class = "container" >
+    <h1><strong>LINE-1</strong></h1>
+    <h2>Long Interspersed Nucleic Elements</h2>
+
+    <br>
+    <img style = "width:1050px;height:20;display:block;margin-left: auto;margin-right: auto" src="{% static "images/LINE-1.jpg" %}"/>
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#1">
+        <h3><strong>Frequency of repeats by name:</strong></h3>
+        <div id="1" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/bar_plot_repname.png" %}"/>
+        </div>
+    </div>
+
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#2">
+        <h3><strong>Frequency of repeats by chromosome:</strong></h3>
+        <div id="2" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/bar_plot_chr.png" %}"/>
+        </div>
+    </div>
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#3">
+        <h3><strong>Frequency of open reading frames by repeat name:</strong></h3>
+        <div id="3" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/stacked_plot_repname.png" %}"/>
+        </div>
+    </div>
+    <br>
+    <div class = "well well-sm text-center" data-toggle="collapse" data-target="#4">
+        <h3><strong>Frequency of open reading frames by chromosome:</strong></h3>
+        <div id="4" class="collapse">     
+            <img style = "width:1100px;height:620" src="{% static "images/stacked_plot_chr.png" %}"/>
+        </div>
+    </div>
+        <br><br>
+
+        <p> <strong>LINE-1</strong> elements make up 17% of the human genome and are the only known retrotransposons that are able to mediate their own mobility, but many are inactive.</p>
+        <p> <strong>LINE-1</strong> retrotransposons can be identified by their genetic elements:</p>
+        <div class = "container" >
+            <p>- An untranslated region containing an RNA polymerase II promoter.</p> 
+            <p>- <strong>ORF0</strong>, a human specific product found in the antisense orientation.</p>
+            <p>- <strong>ORF1</strong>, which contains an RNA polymerase binding site.</p>
+            <p>- <strong>ORF2</strong>, which encodes an endonuclease and reverse transcription.</p>
+        </div>
+        
+        <p>The promoter in the untranslated region encourages RNA polymerase II to bind at the ORF1 domain, the reverse transcriptase encoded by ORF2 allows a DNA copy of the transposon to be produced from the RNA strand and the endonuclease facilitates its insertion back into the genome.</p>
+        <br>
+        <p>Further reading:</p>
+        <p><a href = "https://www.ncbi.nlm.nih.gov/pubmed/26496605" target="_blank">https://www.ncbi.nlm.nih.gov/pubmed/26496605</a></p>
+        <p><a href = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4124830/" target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4124830/</a></p>
+
+        <br><br><br>
+</div>
+
+{% endblock content %}

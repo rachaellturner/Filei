@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block content %}
+
+<div class = "container" >
+
+    <h1><strong>Retrotransposons</strong></h1>
+    <br>
+
+    <p>Retrotransposons are highly abundant in the DNA of eukaryotic organisms; in mammals (including humans) <strong>over 40% of the genome is made up of retrotransposons</strong>.</p>
+    <p>Retrotransposons are elements of genetic DNA that are able to copy themselves and be inserted back into the genomic sequence somewhere else, <strong>specifically transposition is via an RNA intermediate</strong>. Through this method of copying themselves they have been able to increase their copy number and subsequently the size of the genome.</p> 
+    <p>There are different types of retrotransposons, distinguishable by their sequence and method of transposition:</p>
+    <div class = "container">
+        <li>LTR retrotransposons have long terminal repeats (LTR) at both the 3’ and 5’ ends and show sequence and functional homology to retroviruses.</li>
+        <li>Non-LTR retrotransposons don’t have LTR and can be classified further by their size into Long interspersed nuclear elements (LINES) and Short interspersed nuclear elements (SINES).</li>
+        <li>LINES contain a reverse transcription gene that is an integral part of transposition and are therefore able to copy themselves autonomously. On the other hand, SINES are unable to transpose on their own and rely on using the LINE products to increase their copy numbers.</li>
+    </div>
+    
+    <br>
+    
+    <p><strong>Many of the retrotransposons are inactive.</strong> LINE1, Alu and SVA being considered the only active transposable elements within the human genome but many copies within these families are unable to transpose. Of the 850,000 LINES that have been identified within the human genome only ~100 are active. The early termination of reverse transcription during the transpositional process causes the element to be truncated and lose its promoter, therefore unable to copy themselves further.</p>
+    <p>As well as their own copy number and function being influenced by transposition, the act of inserting themselves back into the genome at a different location can also have a large downstream effect. Depending on the location that a transposable element is inserted <strong>a change or inactivation of gene expression may occur</strong>, therefore it would be inaccurate to consider transposable elements as “junk DNA”. Comparisons of tumour and normal tissues have shown retrotransposons to feature in cancer genomes.</p>
+
+    <p>Currently, it’s estimated that between 1 in 20-200 individuals has a new retrotransposable element insertion. Comparison of retrotransposon frequency and polymorphisms can therefore be used as <strong>molecular markers of evolution</strong> and have been used to infer the evolutionary history of human populations and phylogenetic relationships within the primate family.</p>
+
+    <p><strong>Retro-filei allows the exploration of known L1 and HERV transposable elements within the human genome, so dive on in.</strong></p>
+
+    <p>Further reading:</p>
+    <p><a href = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2884099/" target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2884099/</a></p>
+    <p><a href = "https://www.sciencedirect.com/science/article/pii/S0960982212004459" target="_blank">https://www.sciencedirect.com/science/article/pii/S0960982212004459</a></p>
+    <p><a href = "https://link.springer.com/chapter/10.1007/978-94-017-9639-2_3" target="_blank">https://link.springer.com/chapter/10.1007/978-94-017-9639-2_3</a></p>
+
+    <br><br><bR>
+
+</div>
+
+{% endblock content %}

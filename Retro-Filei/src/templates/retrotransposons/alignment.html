@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>{{ family }} Alignment</title>
+
+<div class = "container">
+  <h1><strong>{{ orf }} Multiple Sequence Alignment</strong></h1>
+  <br>
+  <p>Sequence conservation is represented by a protein logo, depicting the sequence diversity. More highly conserved amino acids within the sequences have a larger relative height.</p>
+  <p>Amino acid sequences are aligned using ClustalW defaults and the output used to create a protein logo.</p>
+  
+  <p><strong>Choose an open reading frame and repeat name and press submit to view the alignment all of all repeat sequences that share that name.</strong></p>
+  
+  <p><strong>(This may take serveral minutes to run!)</strong></p>
+
+  <p>The alignment can be downloaded as a text file.</p>
+
+</div>
+{% if family == 'LINE1' %}
+<div class="container">
+    <div class="btn-group btn-group-justified">
+         
+        <div class = "btn-group">  
+        <a href="/ORF0_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF0</button></a>
+        </div> 
+        
+        <div class = "btn-group">
+        <a href="/ORF1_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF1</button></a>
+        </div>
+        
+        <div class = "btn-group">
+        <a href="/ORF2_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF2</button></a>
+        </div>
+      
+      </div>   
+</div>
+{% endif %}
+
+{% if family == 'HERV' %}
+<div class="container">
+
+        <div class="btn-group btn-group-justified">
+             
+            <div class = "btn-group">  
+            <a href="/GAG_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">GAG</button></a>
+            </div> 
+            
+            <div class = "btn-group">
+            <a href="/POL_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">POL</button></a>
+            </div>
+            
+            <div class = "btn-group">
+            <a href="/ENV_protein_logo"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ENV</button></a>
+            </div>
+
+        </div>    
+</div>
+{% endif %}
+
+<br>
+
+<div class = "container">
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %} 
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+  </form>
+</div>
+
+{% if image %}
+<div class="container">
+  <br>
+  <a class = "btn-group btn-group-justified" type="submit" href="/static/alignment.txt" download="{{ repname }}_{{ orf }}_alignment.txt"><button>Download alignment as text file</button></a>
+
+  <img src="{% static "images/protein_logo_image.jpg" %}"/>
+</div>
+{% endif %}
+{% endblock %}

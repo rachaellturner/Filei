@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    {% include 'snippets/css.html' %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">     
+            <div class="col-lg-12 text-left v-center"> 
+                
+                <h1 class="main"><strong>Retro-Filei</strong></h1>
+                <p class="lead">Retro-Filei is your source for exploring retroelements within the human genome.</p>
+            
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    
+        <nav class="navbar navbar-default">
+                <div class="container">
+                  <div class="navbar-header">
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/home">Home</a></li>
+                    <li><a href="/overview">Overview</a></li>
+                    <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">LINE-1<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/LINE1_info">Information</a></li>
+                                <li><a href="/LINE1_phylogeny">Phylogeny</a></li>
+                                <li><a href="/LINE1_Table">Table</a></li>
+                                <li><a href="/LINE1_sequences">DNA Sequences</a></li>
+                                <li><a href="/ORF0_sequences">Open Reading Frames</a></li>
+                                <li><a href="/LINE1_karyotype">Distribution</a></li>
+                                <li><a href="/ORF0_protein_logo">Alignment</a></li>
+                                <li><a href="/LINE1_AA_search">Find Peptide Sequence</a></li>
+                                <li><a href="/LINE1_upload_mzTab">Inspect mzTAB</a></li>
+                                <li><a href="/LINE1_upload_mzID">Inspect mzID</a></li>
+                                <li><a href="/new_LINE1_entry">Add to Database</a></li>
+                            </ul>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">HERV<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/HERV_info">Information</a></li>
+                                    <li><a href="/HERV_phylogeny">Phylogeny</a></li>
+                                    <li><a href="/HERV_Table">Table</a></li>
+                                    <li><a href="/HERV_sequences">DNA Sequences</a></li>
+                                    <li><a href="/GAG_sequences">Open Reading Frames</a></li>
+                                    <li><a href="/HERV_karyotype">Distribution</a></li>
+                                    <li><a href="/GAG_protein_logo">Alignment</a></li>
+                                    <li><a href="/HERV_AA_search">Find Peptide Sequence</a></li>
+                                    <li><a href="/HERV_upload_mzTab">Inspect mzTAB</a></li>
+                                    <li><a href="/HERV_upload_mzID">Inspect mzID</a></li>
+                                    <li><a href="/new_HERV_entry">Add to Database</a></li>
+                                </ul>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Atlas<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Atlas_Table">Table</a></li>
+                                        <li><a href="/new_Atlas_entry">Add to Atlas</a></li>
+                                    </ul>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                        
+                </ul>
+                </div>
+        </nav>
+        
+    <!--canvas class = "bar" id="myCanvas" width="2000" height="20" ></canvas-->
+
+{% block content %}
+{% endblock content %}
+
+
+{% include 'snippets/js.html' %}
+
+</body>
+</html>

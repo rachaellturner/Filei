@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title> {{ orf }} Sequences</title>
+
+<div class = "container">
+ 
+  <h1><strong>{{ orf }} Open Reading Frame Sequences</strong></h1>
+  <h3>Choose a repeat name to display the Open Reading Frame sequences for that repeat name.</h3>
+  <p>(Click on Download FASTA to generate a fasta file for your selection).</p>
+
+</div>
+
+{% if family == 'LINE1' %}
+<div class="container">
+    <div class="btn-group btn-group-justified">
+         
+        <div class = "btn-group">  
+        <a href="/ORF0_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF0</button></a>
+        </div> 
+        
+        <div class = "btn-group">
+        <a href="/ORF1_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF1</button></a>
+        </div>
+        
+        <div class = "btn-group">
+        <a href="/ORF2_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ORF2</button></a>
+        </div>
+   
+    </div>  
+</div>
+{% endif %}
+
+{% if family == 'HERV' %}
+<div class="container">
+    <div class="btn-group btn-group-justified">
+             
+        <div class = "btn-group">  
+            <a href="/GAG_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">GAG</button></a>
+        </div> 
+            
+        <div class = "btn-group">
+            <a href="/POL_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">POL</button></a>
+        </div>
+            
+        <div class = "btn-group">
+            <a href="/ENV_sequences"><button class="btn btn-default btn-lg" type="button" id="LINEButton">ENV</button></a>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+<br>
+<div class = "container">
+ 
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %} 
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+  </form>
+
+</div>
+
+{% if info %}
+<br>
+    <div class = "container">
+        
+        <h2> Repeat Name: {{ repname }}</h2>
+        <a class = "btn-group btn-group-justified" type="submit" href="/static/sequences.fasta" download="{{ repname }}_orf_sequences.fasta"><button>Download Fasta file</button></a>
+    
+    </div>
+
+        <br>
+
+        {% for obj in info %}
+        <div class = "container">
+        <div class = "panel panel-default">
+        </div class = "panel-body">
+            <p><strong>ID: </strong> {{ obj.id }}</p>
+            <p><strong>Repeat Name: </strong> {{ obj.repName }}</p>
+            <p><strong>Chromosome: </strong> {{ obj.genoName }}</p>
+            <p><strong>Strand: </strong>{{ obj.strand }}</p>
+
+            {% if family == 'LINE1' %}
+                
+                {% if orf == 'ORF0' %}
+                <p style = "word-wrap: break-word; width: 1000px"><strong>ORF0 Sequence: </strong>{{ obj.ORF0 }}</p>
+                {% endif %}
+                
+                {% if orf == 'ORF1' %}
+                <p style = "word-wrap: break-word; width: 1000px"><strong>ORF1 Sequence: </strong>{{ obj.ORF1 }}</p>
+                {% endif %}
+                
+                {% if orf == 'ORF2' %}
+                <p style = "word-wrap: break-word; width: 1000px"><strong>ORF2 Sequence: </strong>{{ obj.ORF2 }}</p>
+                {% endif %}
+        
+            {% endif %}
+            
+        {% if family == 'HERV' %}
+                
+            {% if orf == 'GAG' %}
+            <p style = "word-wrap: break-word; width: 1000px"><strong>GAG Sequence: </strong>{{ obj.GAG }}</p>
+            {% endif %}
+            
+            {% if orf == 'POL' %}
+            <p style = "word-wrap: break-word; width: 1000px"><strong>POL Sequence: </strong>{{ obj.POL }}</p>
+            {% endif %}
+            
+            {% if orf == 'ENV' %}
+            <p style = "word-wrap: break-word; width: 1000px"><strong>ENV Sequence: </strong>{{ obj.ENV }}</p>
+            {% endif %}
+    
+        {% endif %}
+        </div>
+        </div>
+        </div>
+            
+        <br>
+        {% endfor %}
+
+{% endif %}
+
+<br><br>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>Inspect mzTAB File</title>
+
+<div class = "container">
+
+  <h1><strong>Inspect mzTab File ({{ family }})</strong></h1>
+  <p><strong>Upload an mzTab file to see if it contains any contains any peptide sequences that match retroelements in our {{ family }} database. </strong></p>
+  <p>This may take several minutes for large files!</p>
+  <form  method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class = "btn-group btn-group-justified" type="submit" value-"submit">Submit</button>
+  </form>
+</div>
+{% endblock %}
+
+
+
+
+
+

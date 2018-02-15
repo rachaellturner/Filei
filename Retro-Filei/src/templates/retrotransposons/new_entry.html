@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<title>New {{ family }} entry</title>
+
+<div class = "container">
+
+  <h1><strong>New {{ family }} entry</strong></h1>
+  <p><strong>Add a new entry to our {{ family }} database. </strong></p>
+  <p>Please provide as much information as possible. Enter information carefully and accurately.</p>
+
+  <form  method="post" class="post-form form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class = "btn-group btn-group-justified" type="submit">Submit</button>
+  </form>
+
+  <br><br><br>
+
+</div>
+{% endblock %}
+
