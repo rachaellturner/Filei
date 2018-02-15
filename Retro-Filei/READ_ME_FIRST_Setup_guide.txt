@@ -80,6 +80,8 @@ In group_project/urls.py:
 
 These parts are commented out so that the database can be rebuilt without conflict.
 
+
+
 Populate the database with the included sample csvs (containing 25% of the actual dataset se used). 
 
 **Note: These scripts will produce a float type error upon completion. The cause for this remains unknown. It may be due to the last lines of the csv being empty. This only seems to happen in the manage.py shell.**
