@@ -45,9 +45,9 @@ Enter the Retro-Filei directory
 
 $ cd Retro-Filei
 
-Install the required R packes using install_R_packages.R
+Install the required R packages using install_R_packages.R
 
-$ Rscript install_R_packes.R
+$ Rscript install_R_packages.R
 
 Install the Python3 requirements 
 
