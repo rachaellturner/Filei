@@ -46,7 +46,7 @@ from django.conf.urls.static import static
 )
 '''
 
-urlpatterns = []
+urlpatterns = [] # remove closing bracket when instructed!
 ''' # uncomment this when instructed!   
     
     # format: url(path, function)
